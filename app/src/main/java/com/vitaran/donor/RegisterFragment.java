@@ -26,10 +26,11 @@ import java.util.regex.Pattern;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener{
 
-    private AppCompatButton btn_register;
+    private AppCompatButton btn_register,btn_locate_me;
     private EditText et_email,et_password,et_re_password,et_name,et_contact,et_address;
     private TextView tv_login;
     private ProgressBar progress;
+    private GPSTracker gps;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +68,26 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
             }
         });*/
 
+        // Adding listener to address EditText for receiving location
+        /*et_address.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= et_address.getRight() - et_address.getTotalPaddingRight()) {
+                        // your action for drawable click event
+                        gps = new GPSTracker(getActivity());
+                        if (gps.canGetLocation()) {
+                            double longitude = gps.getLongitude();
+                            double latitude = gps.getLatitude();
+                            Toast.makeText(getActivity(),"Latitude"+latitude+"\nLongitude"+longitude,Toast.LENGTH_LONG).show();
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });*/
+
         // Adding listener to password EditText for verifying correct format
         et_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -88,12 +109,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+
         return view;
     }
 
     private void initViews(View view){
 
         btn_register = (AppCompatButton)view.findViewById(R.id.btn_register);
+        btn_locate_me = (AppCompatButton)view.findViewById(R.id.btn_locate_me);
         tv_login = (TextView)view.findViewById(R.id.tv_login);
         et_name = (EditText)view.findViewById(R.id.et_name);
         et_email = (EditText)view.findViewById(R.id.et_email);
@@ -105,6 +128,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
         progress = (ProgressBar)view.findViewById(R.id.progress);
 
         btn_register.setOnClickListener(this);
+        btn_locate_me.setOnClickListener(this);
         tv_login.setOnClickListener(this);
 
         //et_contact.setRawInputType(Configuration.KEYBOARD_12KEY);
@@ -122,6 +146,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
 
             case R.id.btn_register:
                 attemptRegistration();
+                break;
+
+            case R.id.btn_locate_me:
+                ((MainActivity)getActivity()).locateDonor();
                 break;
         }
 
@@ -261,6 +289,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
         });
         */
     }
+
 
     private boolean isValidName(EditText et) {
         String name = et.getText().toString().trim();

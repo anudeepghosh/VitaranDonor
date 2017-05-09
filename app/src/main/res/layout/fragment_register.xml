@@ -72,21 +72,39 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_marginTop="@dimen/etMarginTop"
-                android:layout_marginBottom="@dimen/etMarginBottom"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-                <EditText
-                    android:hint="Address"
-                    android:id="@+id/et_address"
-                    android:drawableRight="@drawable/ic_location"
-                    android:inputType="text"
+                <android.support.design.widget.TextInputLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="@dimen/etMarginBottom"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-            </android.support.design.widget.TextInputLayout>
+                    <EditText
+                        android:hint="Click icon to get location"
+                        android:id="@+id/et_address"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.v7.widget.AppCompatButton
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_my_location"
+                    android:id="@+id/btn_locate_me"
+                    android:layout_weight="0"
+                    android:layout_gravity="center|end" />
+
+            </LinearLayout>
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_marginTop="@dimen/etMarginTop"
